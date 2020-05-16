@@ -1,0 +1,17 @@
+<div class="container mt-3">
+  <h1>All Doctors</h1>
+  <ul>
+    <% @doctors.each do |doctor| %>
+    <li>
+      Doctor: <%= link_to doctor.name, doctor_path(doctor) %>
+      Specialty: <%= doctor.specialty %>
+    </li>
+    <% end %>
+  </ul>
+
+  <%= link_to "Add new doctor", new_doctor_path %>
+</div>
+
+
+
+
