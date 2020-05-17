@@ -1,9 +1,33 @@
-Doctor: <%= @doctor.name %>
-Specialty: <%= @doctor.specialty %>
+<div class="container mt-3">
+    <h1>Doctor: <%= @doctor.name %></h1>
+    <h5>Specialty: <%= @doctor.specialty %></h5>
 
-Appointments:
-<% @doctor.appointments.each do |appointment| %>
-  <%= appointment.date %>
-<% end %>
+  <%= link_to "Add Appointment", new_doctor_appointment_path(@doctor), class: "btn btn-outline-primary" %>
 
-<%= link_to "Add appointment with doctor", new_doctor_appointment_path(@doctor) %>
+  <table class="table table-hover mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Patient Name</th>
+        <th scope="col">Patient Age</th>
+        <th scope="col">Appointment Date</th>
+        <th scope="col">Appointment Time</th>
+        <th scope="col">Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @doctor.appointments.order('date ASC').each do |appointment| %>
+      <tr>
+        <td><%= link_to appointment.patient.name, patient_path(appointment.patient), class: "btn btn-outline-secondary" %></td>
+        <td><%= appointment.patient.age %></td>
+        <td><%= appointment.date.strftime("%d %h %Y") %></td>
+        <td><%= appointment.date.strftime("%H:%M") %></td>
+        <td><%= link_to doctor_appointment_path(appointment.doctor_id, appointment.id), method: :delete, data: { confirm: "Delete appointment?" }, class: "btn btn-outline-danger" do %>
+          Cancel
+        <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

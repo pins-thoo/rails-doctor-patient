@@ -1,2 +1,54 @@
-<h1>Patient Name: <%= @patient.name %></h1>
-<h3>Age: <%= @patient.age %></h3>
+<div class="container mt-3">
+  <h1><%= @patient.name %></h1>
+
+  <table class="table table-bordered table-sm">
+    <h2>Patient Information</h2>
+    <tbody>
+      <tr>
+        <th scope="row">Name</th>
+        <td><%= @patient.name %></td>
+      </tr>
+      <tr>
+        <th scope="row">Age</th>
+        <td><%= @patient.age %></td>
+      </tr>
+      <tr>
+        <th scope="row">Remove Patient</th>
+        <td>
+        <%= link_to patient_path(@patient), method: :delete, data: { confirm: "Delete #{@patient.name}?"}, class: "btn btn-outline-danger" do %>
+          Delete
+        <% end %>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table class="table table-hover mt-3">
+    <h2><%= @patient.name %>'s Scheduled Appointments</h2>
+    <thead>
+      <tr>
+        <th scope="col">Doctor Name</th>
+        <th scope="col">Specialty</th>
+        <th scope="col">Date</th>
+        <th scope="col">Time</th>
+        <th scope="col">Cancel</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @patient.appointments.order('date DESC').each do |appointment| %>
+      <tr>
+        <td><%= link_to appointment.doctor.name, doctor_path(appointment.doctor), class: "btn btn-outline-secondary" %></td>
+        <td><%= appointment.doctor.specialty %></td>
+        <td><%= appointment.date.strftime("%d %h %Y") %></td>
+        <td><%= appointment.date.strftime("%H:%M") %></td>
+        <td><%= link_to doctor_appointment_path(appointment.doctor_id, appointment.id), method: :delete, data: { confirm: "Delete appointment with Dr. #{appointment.doctor.name}?" }, class: "btn btn-outline-danger" do %>
+          Cancel
+        <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+

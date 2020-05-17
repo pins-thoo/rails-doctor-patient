@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   def index
+    @doctor = Doctor.find(params[:doctor_id])
     @appointments = Appointment.all
   end
 
@@ -19,8 +20,16 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def destroy
+    @doctor = Doctor.find(params[:doctor_id])
+    @appointment = Appointment.find(params[:id])
+    @appointment.doctor = @doctor
+    @appointment.destroy
+    redirect_to doctor_appointments_path(@doctor)
+  end
+
   private
   def appointment_params
-    params.require(:appointment).permit(:date)
+    params.require(:appointment).permit(:date, :patient_id)
   end
 end

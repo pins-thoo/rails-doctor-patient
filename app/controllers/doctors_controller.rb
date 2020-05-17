@@ -20,6 +20,12 @@ class DoctorsController < ApplicationController
     end
   end
 
+  def destroy
+    @doctor = Doctor.find(params[:id])
+    @doctor.destroy
+    redirect_to doctors_path
+  end
+
   private
 
   def doctor_params

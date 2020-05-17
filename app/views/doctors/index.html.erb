@@ -1,17 +1,31 @@
-<div class="container mt-3">
-  <h1>All Doctors</h1>
-  <ul>
-    <% @doctors.each do |doctor| %>
-    <li>
-      Doctor: <%= link_to doctor.name, doctor_path(doctor) %>
-      Specialty: <%= doctor.specialty %>
-    </li>
-    <% end %>
-  </ul>
+<div class="container mt-5">
+  <h1>All Doctor List</h1>
+  <h5>Number of Doctors: <%= @doctors.count %></h5>
+  <%= link_to "Add Doctor", new_doctor_path, class: "btn btn-outline-primary" %>
 
-  <%= link_to "Add new doctor", new_doctor_path %>
+  <table class="table table-hover mt-3">
+    <thead>
+      <tr>
+        <th scope="col">Doctor Name</th>
+        <th scope="col">Specialty</th>
+        <th scope="col">Appointments</th>
+        <th scope="col">Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @doctors.each do |doctor| %>
+      <tr>
+        <td><%= link_to doctor.name, doctor_path(doctor), class: "btn btn-outline-secondary" %></td>
+        <td><%= doctor.specialty %></td>
+        <td><%= doctor.appointments.count %></td>
+        <td><%= link_to doctor_path(doctor), method: :delete, data: { confirm: "Remove #{doctor.name}?" }, class: "btn btn-outline-danger" do %>
+          Remove
+        <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
-
-
 
 

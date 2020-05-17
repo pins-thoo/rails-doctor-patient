@@ -1,5 +1,7 @@
-<%= simple_form_for(@patient) do |f| %>
-  <%= f.input :name %>
-  <%= f.input :age, input_html: { min: 1 } %>
-  <%= f.submit %>
-<% end %>
+<div class="container mt-3">
+  <%= simple_form_for(@patient) do |f| %>
+    <%= f.input :name %>
+    <%= f.input :age, input_html: { min: 1 } %>
+    <%= f.submit %>
+  <% end %>
+</div>

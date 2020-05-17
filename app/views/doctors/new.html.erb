@@ -1,8 +1,8 @@
-<div class="container">
+<div class="container mt-3">
 
   <%= simple_form_for(@doctor) do |f| %>
     <%= f.input :name %>
-    <%= f.input :specialty %>
+    <%= f.input :specialty, collection: ["Dermatology", "Emergency Medicine", "Neurology", "Obstetrics & Gynecology", "Pediatrics", "Surgery", "Urology", "Psychiatry", "Diagnostic Radiology"].sort { |a, b| a <=> b }, include_blank: false %>
     <%= f.submit class: 'btn btn-primary' %>
   <% end %>
 
